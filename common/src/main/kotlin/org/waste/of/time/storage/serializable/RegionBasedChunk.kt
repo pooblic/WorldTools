@@ -113,7 +113,7 @@ open class RegionBasedChunk(
             putLong(TIMESTAMP_KEY, System.currentTimeMillis())
         }
 
-        putInt("DataVersion", SharedConstants.getGameVersion().saveVersion.id)
+        putInt("DataVersion", SharedConstants.getGameVersion().dataVersion().id)
         putInt(SerializedChunk.X_POS_KEY, chunk.pos.x)
         putInt("yPos", chunk.bottomSectionCoord)
         putInt(SerializedChunk.Z_POS_KEY, chunk.pos.z)

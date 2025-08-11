@@ -16,3 +16,4 @@ accessible method net/minecraft/block/entity/LockableContainerBlockEntity getHel
 accessible method net/minecraft/block/entity/LockableContainerBlockEntity setHeldStacks (Lnet/minecraft/util/collection/DefaultedList;)V
 accessible method net/minecraft/world/chunk/SerializedChunk toNbt ([Lit/unimi/dsi/fastutil/shorts/ShortList;)Lnet/minecraft/nbt/NbtList;
 accessible method net/minecraft/world/chunk/SerializedChunk serializeTicks (Lnet/minecraft/nbt/NbtCompound;Lnet/minecraft/world/chunk/Chunk$TickSchedulers;)V
+accessible method net/minecraft/storage/NbtWriteView <init> (Lnet/minecraft/util/ErrorReporter;Lcom/mojang/serialization/DynamicOps;Lnet/minecraft/nbt/NbtCompound;)V

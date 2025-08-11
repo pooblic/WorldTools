@@ -2,12 +2,16 @@ package org.waste.of.time.storage.serializable
 
 import net.minecraft.SharedConstants
 import net.minecraft.nbt.*
+import net.minecraft.storage.NbtWriteView
 import net.minecraft.text.MutableText
+import net.minecraft.util.ErrorReporter
 import net.minecraft.util.Util
 import net.minecraft.util.WorldSavePath
 import net.minecraft.world.GameRules
 import net.minecraft.world.level.storage.LevelStorage.Session
+import org.slf4j.LoggerFactory
 import org.waste.of.time.Utils.toByte
+import org.waste.of.time.WorldTools
 import org.waste.of.time.WorldTools.DAT_EXTENSION
 import org.waste.of.time.WorldTools.LOG
 import org.waste.of.time.WorldTools.config
@@ -83,10 +87,10 @@ class LevelDataStoreable : Storeable() {
         // skip removed features
 
         put("Version", NbtCompound().apply {
-            putString("Name", SharedConstants.getGameVersion().name)
-            putInt("Id", SharedConstants.getGameVersion().saveVersion.id)
-            putBoolean("Snapshot", !SharedConstants.getGameVersion().isStable)
-            putString("Series", SharedConstants.getGameVersion().saveVersion.series)
+            putString("Name", SharedConstants.getGameVersion().name())
+            putInt("Id", SharedConstants.getGameVersion().dataVersion().id)
+            putBoolean("Snapshot", !SharedConstants.getGameVersion().stable())
+            putString("Series", SharedConstants.getGameVersion().dataVersion().series)
         })
 
         NbtHelper.putDataVersion(this)
@@ -125,7 +129,11 @@ class LevelDataStoreable : Storeable() {
         val rules = player.world?.server?.gameRules?.genGameRules() ?: NbtCompound()
         put("GameRules", rules)
         put("Player", NbtCompound().apply {
-            player.writeNbt(this)
+			player.writeData(NbtWriteView(
+				ErrorReporter.Logging(LoggerFactory.getLogger(WorldTools.javaClass)),
+				NbtOps.INSTANCE,
+				this
+			))
             remove("LastDeathLocation") // can contain sensitive information
             putString("Dimension", "minecraft:${player.world.registryKey.value.path}")
         })

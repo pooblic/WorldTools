@@ -5,6 +5,8 @@ import net.minecraft.block.entity.BlockEntity
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtIo
 import net.minecraft.registry.Registries
+import net.minecraft.storage.NbtReadView
+import net.minecraft.util.ErrorReporter
 import net.minecraft.util.Identifier
 import net.minecraft.util.path.PathUtil
 import net.minecraft.util.ThrowableDeliverer
@@ -13,6 +15,8 @@ import net.minecraft.util.math.ChunkPos
 import net.minecraft.world.World
 import net.minecraft.world.storage.RegionFile
 import net.minecraft.world.storage.StorageKey
+import org.slf4j.LoggerFactory
+import org.waste.of.time.WorldTools
 import org.waste.of.time.WorldTools.MCA_EXTENSION
 import org.waste.of.time.WorldTools.MOD_NAME
 import org.waste.of.time.WorldTools.mc
@@ -82,7 +86,11 @@ open class CustomRegionBasedStorage internal constructor(
                         .getOptionalValue(blockStateIdentifier)
                         .orElse(null)
                         ?.instantiate(blockPos, block.defaultState)?.apply {
-                            read(compoundTag, world.registryManager)
+							read(NbtReadView.create(
+								ErrorReporter.Logging(LoggerFactory.getLogger(WorldTools.javaClass)),
+								world.registryManager,
+								compoundTag
+							))
                         }
                 }.getOrNull()
             } ?: emptyList()

@@ -22,7 +22,7 @@ object WorldTools {
     const val MAX_LEVEL_NAME_LENGTH = 64
     const val TIMESTAMP_KEY = "CaptureTimestamp"
     val GSON: Gson = GsonBuilder().setPrettyPrinting().create()
-    val CURRENT_VERSION = SharedConstants.getGameVersion().saveVersion.id
+    val CURRENT_VERSION = SharedConstants.getGameVersion().dataVersion().id
     private val VERSION: String = LoaderInfo.getVersion()
     val CREDIT_MESSAGE = "This file was created by $MOD_NAME $VERSION ($URL)"
     val CREDIT_MESSAGE_MD = "This file was created by [$MOD_NAME $VERSION]($URL)"

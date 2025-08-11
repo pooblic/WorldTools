@@ -26,6 +26,7 @@ import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 object WorldToolsForge {
     init {
         WorldTools.initialize()
+		/* TODO: wait for kotlin for forge to cope with api changes
         FORGE_BUS.addListener<RegisterKeyMappingsEvent> {
             it.register(WorldTools.CAPTURE_KEY)
             it.register(WorldTools.CONFIG_KEY)
@@ -57,6 +58,7 @@ object WorldToolsForge {
         FORGE_BUS.addListener<ScreenEvent.Closing> {
             Events.onScreenRemoved(it.screen)
         }
+		*/
 
         LOG.info("WorldTools Forge initialized")
     }

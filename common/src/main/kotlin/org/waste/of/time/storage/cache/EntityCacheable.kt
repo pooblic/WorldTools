@@ -3,7 +3,12 @@ package org.waste.of.time.storage.cache
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.nbt.NbtCompound
+import net.minecraft.nbt.NbtOps
+import net.minecraft.storage.NbtWriteView
+import net.minecraft.util.ErrorReporter
+import org.slf4j.LoggerFactory
 import org.waste.of.time.Utils.toByte
+import org.waste.of.time.WorldTools
 import org.waste.of.time.WorldTools.TIMESTAMP_KEY
 import org.waste.of.time.WorldTools.config
 import org.waste.of.time.storage.Cacheable
@@ -14,7 +19,11 @@ data class EntityCacheable(
     fun compound() = NbtCompound().apply {
         // saveSelfNbt has a check for RemovalReason.DISCARDED
         EntityType.getId(entity.type)?.let { putString(Entity.ID_KEY, it.toString()) }
-        entity.writeNbt(this)
+        entity.writeData(NbtWriteView(
+			ErrorReporter.Logging(LoggerFactory.getLogger(WorldTools.javaClass)),
+			NbtOps.INSTANCE,
+			this
+		))
 
         if (config.entity.behavior.modifyEntityBehavior) {
             putByte("NoAI", config.entity.behavior.noAI.toByte())
