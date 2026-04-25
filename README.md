@@ -1,3 +1,10 @@
+# Archival note
+I'm archiving this because I'm tired of maintaining it. I guess Avanatiker is too focused on his vibe coded shitfest of a client to get any progress on this, and honestly, it's not my codebase.
+
+Architectury is broken [for some inexplicable reason](https://github.com/architectury/architectury-loom/issues/335), so the Forge half is dead. I'd almost gotten the Fabric half to work, despite significant changes to how worlds are saved, but then I noticed that the rendering (?) part of this mod is broken and I cannot be bothered to figure it out. It'd be enough of a bother already in Java, and on top of that I absolutely loathe working in Kotlin.
+
+Maybe in the future I'll make my own, but for now, fuck this. I think [World Downloader²](https://modrinth.com/mod/worlddownloader) works as an alternative but I haven't tried it.
+
 <p align="center">
   <img src="https://github.com/Avanatiker/WorldTools/blob/master/common/src/main/resources/assets/worldtools/WorldTools.png?raw=true" alt="" width="256" height="256" style="display: block; margin-left: auto; margin-right: auto;">
 </p>
